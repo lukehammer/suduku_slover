@@ -1,19 +1,22 @@
 __author__ = 'student'
 import math
 
+
 def enterpuzzle(puzzle):
     while True:
         # puzzle = raw_input('please enter your 81 digit puzzle use "." for blank spots :\n')
-        #Validate that user input is len = 81
+        # Validate that user input is len = 81
         if not len(puzzle) == 81:
-            print ("please enter a value that is equal to 81 charactors long. Please try again")
+            print("please enter a value that is equal to 81 charactors long. Please try again")
             continue
         #Validate that user input only has numbers or .
         valid = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."]
         for char in puzzle:
             if not char in valid:
-                print (char + " is not a valid value please reenter puzzle without using " + char)
+                print(char + " is not a valid value please reenter puzzle without using " + char)
         break
+
+
 def display(puzzle):
     display = ''
     ii = 0
@@ -35,22 +38,27 @@ def display(puzzle):
             display = display + char
         ii += 1
 
-
     display = display + "|\n+---+---+---+"
 
-    print display
+    print(display)
+
+
 def find_row(numbervalue):
-    row = numbervalue/9
+    row = numbervalue / 9
     row = math.floor(row)
     row = int(row)
     return row
     # given any position in the puzzle this will return the row
+
+
 def find_column(numbervalue):
     column = numbervalue % 9
     column = int(column)
     return column
     return
     # given any position in the puzzle this will return the column
+
+
 def find_box(numbervalue):
     # finds the box that a given cell belongs to e.g. start with upper left 0
     row = find_row(numbervalue)
@@ -65,16 +73,24 @@ def find_box(numbervalue):
     box_number = int(box_number)
     return box_number
     # given any position in the puzzle this will return the boxNumber
+
+
 def cell_current_properties():
     return
+
+
 def check_for_available_values(cell_index):
     return
+
+
 def get_all_indexs_for_row(row):
     indexs = []
-    for x in range(0,9):
+    for x in range(0, 9):
         next_index = x + 9 * row
         indexs.append(next_index)
     return indexs
+
+
 def get_all_indexs_for_column(column):
     """
     given any index in the puzzle this returns a list of indexs in that column
@@ -82,10 +98,12 @@ def get_all_indexs_for_column(column):
     :return: indexs[]
     """
     indexs = []
-    for x in range(0,9):
+    for x in range(0, 9):
         next_index = x * 9 + column
         indexs.append(next_index)
     return indexs
+
+
 def get_all_indexs_for_box(box):
     """
     given any index in the puzzle this returns a list of indexs in that box
@@ -100,13 +118,15 @@ def get_all_indexs_for_box(box):
     column = int(math.floor(column))
     column = column * 3
     indexs = []
-    for x in range(0,3):
-        for y in range(0,3):
+    for x in range(0, 3):
+        for y in range(0, 3):
             next_index = x * 9 + y + column + row
             indexs.append(next_index)
     return indexs
+
+
 def get_all_indexs_related_cell(index):
-    related_cells= []
+    related_cells = []
     box = find_box(index)
     box = get_all_indexs_for_box(box)
     related_cells.extend(box)
@@ -119,40 +139,36 @@ def get_all_indexs_related_cell(index):
     related_cells = set(related_cells)
     related_cells = list(related_cells)
     return related_cells
+
+
 def get_possable_locations_for_number(unsloved_list, puzzle, value):
     possable_locations = []
     # loop though each unsloved value
     for orgain_cell in unsloved_list:
-        related_cells = get_all_indexs_related_cell(orgain_cell)
-        # loop thought each cell related to the unsloved cell
-
-        for related_cell in related_cells:
-            puzzle_cell_value = puzzle[related_cell]
-            # debug print puzzle_cell_value
-            if not str(value) == puzzle_cell_value:
-                print "there not a match at index "+ str(related_cell) + ' to value :'+ str(value)
-            else:
-                print "there is a match at index "+ str(related_cell) + ' to value :'+ str(value)
-                break
+        possable = can_cell_be_value(puzzle, value, orgain_cell)
+        if possable:
             possable_locations.append(orgain_cell)
-        print possable_locations
 
 
     return possable_locations
 
-        #active_column = find_column(cell)
-        #active_box = find_box(cell)
+    # active_column = find_column(cell)
+    #active_box = find_box(cell)
     return
+
+
 def get_unsloved_cells(puzzle):
-    unsloved =[]
+    unsloved = []
     ii = 0
     for char in puzzle:
-       if char == ".":
-           unsloved.append(ii)
-       ii += 1
-    #returns unsloved index
+        if char == ".":
+            unsloved.append(ii)
+        ii += 1
+    # returns unsloved index
     return unsloved
-def get_number_values(cell_index_list,puzzle):
+
+
+def get_number_values(cell_index_list, puzzle):
     # given a list of cell indexs returns a list of the values contained
     values = []
     for index in cell_index_list:
@@ -160,30 +176,53 @@ def get_number_values(cell_index_list,puzzle):
             value = puzzle[index]
             values.append(value)
     return values
+
+
 def do_for_each_value(thing):
-    for value in range(1,10):
-        print value
-        print thing(value)
+    for value in range(1, 10):
+        print
+        value
+        print
+        thing(value)
 
 
+def can_cell_be_value(puzzle, value, cell):
+    related_cells = get_all_indexs_related_cell(cell)
+    for related_cell in related_cells:
+        cell_puzzle_value = puzzle[related_cell]
+        if cell_puzzle_value ==  '.':
+            continue
+        if value == int(cell_puzzle_value):
+            return False
+    return True
 
 
 puzzle = '.94...1...............76..2.8..1.....32.........2...6.....5.4.......8..7..63.4..8'
 enterpuzzle(puzzle)
 
-unsloved = range(1)
-#unsloved = get_unsloved_cells(puzzle)
-value = 1
+unsloved = get_unsloved_cells(puzzle)
+value = 9
 #get_possable_locations_for_number(unsloved, puzzle, value)
 print(get_all_indexs_related_cell(0))
 display(puzzle)
-possable_locations = get_possable_locations_for_number(unsloved,puzzle,1)
-print possable_locations
+possable_locations = get_possable_locations_for_number(unsloved, puzzle, value)
+print (possable_locations)
+def search_in(area,possable_locations):
+    for ii in range(9):
+        row = get_all_indexs_for_row(ii)
+        valid_index_for_row = set(possable_locations) & set(row)
+        if len(valid_index_for_row) == 1:
+            print ("you found a value for index " + str(valid_index_for_row))
+        print (valid_index_for_row)
 
+
+#print (can_cell_be_value(puzzle,2,0))
+#print (can_cell_be_value(puzzle,9,0))
+#display(puzzle)
 #give me a puzzle
 #for this puzzle give me all that place that can be 1
 #look at the first place that can be 1
-    #can any other value in this row be 1?
-    #can any other value in this colomn be 1?
-    #can any other value in this box ?
+#can any other value in this row be 1?
+#can any other value in this colomn be 1?
+#can any other value in this box ?
 #if so change len[index] to 1
