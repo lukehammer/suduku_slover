@@ -125,15 +125,17 @@ def get_possable_locations_for_number(unsloved_list, puzzle, value):
     for orgain_cell in unsloved_list:
         related_cells = get_all_indexs_related_cell(orgain_cell)
         # loop thought each cell related to the unsloved cell
+
         for related_cell in related_cells:
             puzzle_cell_value = puzzle[related_cell]
             # debug print puzzle_cell_value
-            if str(value) == puzzle_cell_value:
-                print "there is a match at index "+ str(related_cell) + ' to value :'+ str(value)
-            else:
+            if not str(value) == puzzle_cell_value:
                 print "there not a match at index "+ str(related_cell) + ' to value :'+ str(value)
-            possable_locations.append(related_cell)
-
+            else:
+                print "there is a match at index "+ str(related_cell) + ' to value :'+ str(value)
+                break
+            possable_locations.append(orgain_cell)
+        print possable_locations
 
 
     return possable_locations
@@ -168,7 +170,9 @@ def do_for_each_value(thing):
 
 puzzle = '.94...1...............76..2.8..1.....32.........2...6.....5.4.......8..7..63.4..8'
 enterpuzzle(puzzle)
-unsloved = get_unsloved_cells(puzzle)
+
+unsloved = range(1)
+#unsloved = get_unsloved_cells(puzzle)
 value = 1
 #get_possable_locations_for_number(unsloved, puzzle, value)
 print(get_all_indexs_related_cell(0))
