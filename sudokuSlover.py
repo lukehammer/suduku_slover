@@ -105,26 +105,41 @@ def get_all_indexs_for_box(box):
             next_index = x * 9 + y + column + row
             indexs.append(next_index)
     return indexs
-
-
+def get_all_indexs_related_cell(index):
+    related_cells= []
+    box = find_box(index)
+    box = get_all_indexs_for_box(box)
+    related_cells.extend(box)
+    column = find_column(index)
+    column = get_all_indexs_for_column(column)
+    related_cells.extend(column)
+    row = find_row(index)
+    row = get_all_indexs_for_row(row)
+    related_cells.extend(row)
+    related_cells = set(related_cells)
+    related_cells = list(related_cells)
+    return related_cells
 def get_possable_locations_for_number(unsloved_list, puzzle, value):
     possable_locations = []
-    for cell in unsloved_list:
-        active_row = find_row(cell)
-        active_row_indexs = get_all_indexs_for_row(active_row)
-        get_number_values(active_row_indexs,puzzle)
-        if value in unsloved_list:
+    # loop though each unsloved value
+    for orgain_cell in unsloved_list:
+        related_cells = get_all_indexs_related_cell(orgain_cell)
+        # loop thought each cell related to the unsloved cell
+        for related_cell in related_cells:
+            puzzle_cell_value = puzzle[related_cell]
+            # debug print puzzle_cell_value
+            if str(value) == puzzle_cell_value:
+                print "there is a match at index "+ str(related_cell) + ' to value :'+ str(value)
+            else:
+                print "there not a match at index "+ str(related_cell) + ' to value :'+ str(value)
+            possable_locations.append(related_cell)
 
 
-            print active_row, active_row_indexs, cell
 
-
-
+    return possable_locations
 
         #active_column = find_column(cell)
         #active_box = find_box(cell)
-
-
     return
 def get_unsloved_cells(puzzle):
     unsloved =[]
@@ -136,12 +151,17 @@ def get_unsloved_cells(puzzle):
     #returns unsloved index
     return unsloved
 def get_number_values(cell_index_list,puzzle):
+    # given a list of cell indexs returns a list of the values contained
     values = []
     for index in cell_index_list:
         if not puzzle[index] == ".":
             value = puzzle[index]
             values.append(value)
     return values
+def do_for_each_value(thing):
+    for value in range(1,10):
+        print value
+        print thing(value)
 
 
 
@@ -149,8 +169,17 @@ def get_number_values(cell_index_list,puzzle):
 puzzle = '.94...1...............76..2.8..1.....32.........2...6.....5.4.......8..7..63.4..8'
 enterpuzzle(puzzle)
 unsloved = get_unsloved_cells(puzzle)
-#display(puzzle)
-#get_possable_locations_for_number(unsloved,puzzle,1)
-row1 = get_all_indexs_for_row(0)
-test = get_number_values(row1,puzzle)
-print test
+value = 1
+#get_possable_locations_for_number(unsloved, puzzle, value)
+print(get_all_indexs_related_cell(0))
+display(puzzle)
+possable_locations = get_possable_locations_for_number(unsloved,puzzle,1)
+print possable_locations
+
+#give me a puzzle
+#for this puzzle give me all that place that can be 1
+#look at the first place that can be 1
+    #can any other value in this row be 1?
+    #can any other value in this colomn be 1?
+    #can any other value in this box ?
+#if so change len[index] to 1
