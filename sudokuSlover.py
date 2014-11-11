@@ -197,24 +197,46 @@ def can_cell_be_value(puzzle, value, cell):
     return True
 
 
-puzzle = '.94...1...............76..2.8..1.....32.........2...6.....5.4.......8..7..63.4..8'
-enterpuzzle(puzzle)
-
-unsloved = get_unsloved_cells(puzzle)
-value = 9
-#get_possable_locations_for_number(unsloved, puzzle, value)
-print(get_all_indexs_related_cell(0))
-display(puzzle)
-possable_locations = get_possable_locations_for_number(unsloved, puzzle, value)
-print (possable_locations)
-def search_in(area,possable_locations):
+def search_for_only_in_row(possable_locations):
     for ii in range(9):
         row = get_all_indexs_for_row(ii)
         valid_index_for_row = set(possable_locations) & set(row)
         if len(valid_index_for_row) == 1:
             print ("you found a value for index " + str(valid_index_for_row))
         print (valid_index_for_row)
+def search_for_only_in_box(possable_locations):
+    for ii in range(9):
+        box = get_all_indexs_for_box(ii)
+        valid_index_for_box = set(possable_locations) & set(box)
+        if len(valid_index_for_box) == 1:
+            print ("you found a value for index " + str(valid_index_for_box))
+        print (valid_index_for_box)
+def search_for_only_in_column(possable_locations):
+    for ii in range(9):
+        column = get_all_indexs_for_column(ii)
+        valid_index_for_column = set(possable_locations) & set(column)
+        if len(valid_index_for_column) == 1:
+            print ("you found a value for index " + str(valid_index_for_column))
+        print (valid_index_for_column)
 
+
+
+
+
+
+puzzle = '..9.43..........3.41..7.............8..5...6..4...6..2.......1...4.98..67..6..52.'
+enterpuzzle(puzzle)
+
+unsloved = get_unsloved_cells(puzzle)
+value = 3
+#get_possable_locations_for_number(unsloved, puzzle, value)
+print(get_all_indexs_related_cell(0))
+display(puzzle)
+possable_locations = get_possable_locations_for_number(unsloved, puzzle, value)
+
+search_for_only_in_row(possable_locations)
+search_for_only_in_box(possable_locations)
+search_for_only_in_column(possable_locations)
 
 #print (can_cell_be_value(puzzle,2,0))
 #print (can_cell_be_value(puzzle,9,0))
