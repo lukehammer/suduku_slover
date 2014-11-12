@@ -2,6 +2,7 @@ __author__ = 'student'
 import math
 
 
+
 def enterpuzzle(puzzle):
     while True:
         # puzzle = raw_input('please enter your 81 digit puzzle use "." for blank spots :\n')
@@ -240,23 +241,54 @@ def uniq(input):
   return output
 
 def change_sloved_locations(puzzle,sloved_value,sloved_locations):
+    if sloved_locations == None:
+        return puzzle
     puzzle = list(puzzle)
     puzzle[sloved_locations] = str(sloved_value)
     puzzle = ''.join(puzzle)
     return puzzle
 
-def single_pass():
-    puzzle = '..9.43..........3.41..7.............8..5...6..4...6..2.......1...4.98..67..6..52.'
-    value = 3
-    enterpuzzle(puzzle)
-    unsloved = get_unsloved_cells(puzzle)
-    display(puzzle)
-    possable_locations = get_possable_locations_for_number(unsloved, puzzle, value)
-    solved_locations = search_for_only_in_area(possable_locations)
-    puzzle = change_sloved_locations(puzzle,value,solved_locations)
-    display(puzzle)
+def single_pass(puzzle):
 
-single_pass()
+    enterpuzzle(puzzle)
+    for ii in range(1,10):
+        old_puzzle = puzzle
+        value = ii
+        unsloved = get_unsloved_cells(puzzle)
+        possable_locations = get_possable_locations_for_number(unsloved, puzzle, value)
+        print ("checking for value " + str(ii))
+        solved_locations = search_for_only_in_area(possable_locations)
+        puzzle = change_sloved_locations(puzzle,value,solved_locations)
+        if not old_puzzle == puzzle:
+            display(puzzle)
+    return puzzle
+
+def simple_slove(puzzle):
+    old_puzzle =''
+    while not puzzle == old_puzzle:
+        old_puzzle = puzzle
+        puzzle = single_pass(puzzle)
+    return puzzle
+
+
+def main(puzzle):
+    puzzle = simple_slove(puzzle)
+    if "." in puzzle:
+        print ("Can not be full sloved by slover yet.")
+        display(puzzle)
+        print ("Can not be full sloved by slover yet.")
+    else:
+        display(puzzle)
+        print ("Done")
+puzzle = '..9.43..........3.41..7.............8..5...6..4...6..2.......1...4.98..67..6..52.'
+puzzle = '.....5....2...4.1..3..8..2......84..8..6......9..1.7.5..6......95...3.6...3.....1'
+puzzle = '....4....1..9..64..3....8....7.........1.859.......3...52..1....1.7.3...39..5...4'
+
+main(puzzle)
+
+
+
+
 
 #print (can_cell_be_value(puzzle,2,0))
 #print (can_cell_be_value(puzzle,9,0))
