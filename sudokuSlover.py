@@ -211,9 +211,8 @@ def search_for_only_in_column(possable_locations):
             print ("you found a value for index " + str(valid_index_for_column))
         print (valid_index_for_column)
 
-def search_for_only_in_area(possable_locations,):
+def search_for_only_in_area(possable_locations):
     area = []
-    sloved_locations = []
     for ii in range(9):
         row = get_all_indexs_for_row(ii)
         column = get_all_indexs_for_column(ii)
@@ -225,11 +224,12 @@ def search_for_only_in_area(possable_locations,):
         valid_values_for_area = set(possable_locations) & set(list)
         if len(valid_values_for_area) == 1:
             print ("you found a value for index " + str(valid_values_for_area) + 'in area ' + str(list))
-            sloved_locations.append(valid_values_for_area)
-        print (set(valid_values_for_area))
-    # this is to remove duplicates
-    sloved_locations = uniq(sloved_locations)
-    return sloved_locations
+            # this is clean up to get the {} from vaild_values_for_area
+            test = str(valid_values_for_area)
+            test = test.replace('{','')
+            test = test.replace('}','')
+            test = int(test)
+            return test
 
 def uniq(input):
 ## used to remove non unique items
@@ -239,18 +239,24 @@ def uniq(input):
       output.append(x)
   return output
 
-puzzle = '..9.43..........3.41..7.............8..5...6..4...6..2.......1...4.98..67..6..52.'
-enterpuzzle(puzzle)
+def change_sloved_locations(puzzle,sloved_value,sloved_locations):
+    puzzle = list(puzzle)
+    puzzle[sloved_locations] = str(sloved_value)
+    puzzle = ''.join(puzzle)
+    return puzzle
 
-unsloved = get_unsloved_cells(puzzle)
-value = 3
-#get_possable_locations_for_number(unsloved, puzzle, value)
-print(get_all_indexs_related_cell(0))
-display(puzzle)
-possable_locations = get_possable_locations_for_number(unsloved, puzzle, value)
+def single_pass():
+    puzzle = '..9.43..........3.41..7.............8..5...6..4...6..2.......1...4.98..67..6..52.'
+    value = 3
+    enterpuzzle(puzzle)
+    unsloved = get_unsloved_cells(puzzle)
+    display(puzzle)
+    possable_locations = get_possable_locations_for_number(unsloved, puzzle, value)
+    solved_locations = search_for_only_in_area(possable_locations)
+    puzzle = change_sloved_locations(puzzle,value,solved_locations)
+    display(puzzle)
 
-print (search_for_only_in_area(possable_locations))
-
+single_pass()
 
 #print (can_cell_be_value(puzzle,2,0))
 #print (can_cell_be_value(puzzle,9,0))
