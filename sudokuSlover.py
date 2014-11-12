@@ -178,14 +178,6 @@ def get_number_values(cell_index_list, puzzle):
     return values
 
 
-def do_for_each_value(thing):
-    for value in range(1, 10):
-        print
-        value
-        print
-        thing(value)
-
-
 def can_cell_be_value(puzzle, value, cell):
     related_cells = get_all_indexs_related_cell(cell)
     for related_cell in related_cells:
@@ -206,7 +198,7 @@ def search_for_only_in_row(possable_locations):
         print (valid_index_for_row)
 def search_for_only_in_box(possable_locations):
     for ii in range(9):
-        box = get_all_indexs_for_box(ii)
+        column = get_all_indexs_for_column(ii)
         valid_index_for_box = set(possable_locations) & set(box)
         if len(valid_index_for_box) == 1:
             print ("you found a value for index " + str(valid_index_for_box))
@@ -219,10 +211,33 @@ def search_for_only_in_column(possable_locations):
             print ("you found a value for index " + str(valid_index_for_column))
         print (valid_index_for_column)
 
+def search_for_only_in_area(possable_locations,):
+    area = []
+    sloved_locations = []
+    for ii in range(9):
+        row = get_all_indexs_for_row(ii)
+        column = get_all_indexs_for_column(ii)
+        box = get_all_indexs_for_box(ii)
+        area.append(row)
+        area.append(column)
+        area.append(box)
+    for list in area:
+        valid_values_for_area = set(possable_locations) & set(list)
+        if len(valid_values_for_area) == 1:
+            print ("you found a value for index " + str(valid_values_for_area) + 'in area ' + str(list))
+            sloved_locations.append(valid_values_for_area)
+        print (set(valid_values_for_area))
+    # this is to remove duplicates
+    sloved_locations = uniq(sloved_locations)
+    return sloved_locations
 
-
-
-
+def uniq(input):
+## used to remove non unique items
+  output = []
+  for x in input:
+    if x not in output:
+      output.append(x)
+  return output
 
 puzzle = '..9.43..........3.41..7.............8..5...6..4...6..2.......1...4.98..67..6..52.'
 enterpuzzle(puzzle)
@@ -234,9 +249,8 @@ print(get_all_indexs_related_cell(0))
 display(puzzle)
 possable_locations = get_possable_locations_for_number(unsloved, puzzle, value)
 
-search_for_only_in_row(possable_locations)
-search_for_only_in_box(possable_locations)
-search_for_only_in_column(possable_locations)
+print (search_for_only_in_area(possable_locations))
+
 
 #print (can_cell_be_value(puzzle,2,0))
 #print (can_cell_be_value(puzzle,9,0))
