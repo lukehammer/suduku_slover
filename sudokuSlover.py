@@ -225,10 +225,16 @@ def search_for_only_in_area(possable_locations):
         valid_values_for_area = set(possable_locations) & set(list)
         if len(valid_values_for_area) == 1:
             print ("you found a value for index " + str(valid_values_for_area) + 'in area ' + str(list))
-            # this is clean up to get the {} from vaild_values_for_area
+            # this is clean up to get the {} from vaild_values_for_area for python 3
+            # reminder for self "sets" have proven to be a pain in the butt
             test = str(valid_values_for_area)
             test = test.replace('{','')
             test = test.replace('}','')
+            # this this is clean up to get the {} from vaild_values_for_area for python 2.*
+            test = test.replace('set(','')
+            test = test.replace(')','')
+            test = test.replace('[','')
+            test = test.replace(']','')
             test = int(test)
             return test
 
@@ -281,8 +287,8 @@ def main(puzzle):
         display(puzzle)
         print ("Done")
 puzzle = '..9.43..........3.41..7.............8..5...6..4...6..2.......1...4.98..67..6..52.'
-puzzle = '.....5....2...4.1..3..8..2......84..8..6......9..1.7.5..6......95...3.6...3.....1'
-puzzle = '....4....1..9..64..3....8....7.........1.859.......3...52..1....1.7.3...39..5...4'
+#puzzle = '.....5....2...4.1..3..8..2......84..8..6......9..1.7.5..6......95...3.6...3.....1'
+#puzzle = '....4....1..9..64..3....8....7.........1.859.......3...52..1....1.7.3...39..5...4'
 
 main(puzzle)
 
