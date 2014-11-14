@@ -223,20 +223,18 @@ def search_for_only_in_area(possable_locations):
         area.append(box)
     for list in area:
         valid_values_for_area = set(possable_locations) & set(list)
+
+
+
         if len(valid_values_for_area) == 1:
-            print ("you found a value for index " + str(valid_values_for_area) + 'in area ' + str(list))
-            # this is clean up to get the {} from vaild_values_for_area for python 3
-            # reminder for self "sets" have proven to be a pain in the butt
-            test = str(valid_values_for_area)
-            test = test.replace('{','')
-            test = test.replace('}','')
-            # this this is clean up to get the {} from vaild_values_for_area for python 2.*
-            test = test.replace('set(','')
-            test = test.replace(')','')
-            test = test.replace('[','')
-            test = test.replace(']','')
-            test = int(test)
-            return test
+            valid_values_for_area = valid_values_for_area.pop()
+            row = find_row(valid_values_for_area) + 1
+            column = find_column(valid_values_for_area) + 1
+            print ("\tYou found a value for row " + str(row) + " & column " + str(column) + ' in area ' + str(list))
+            return valid_values_for_area
+        elif len(valid_values_for_area) > 1:
+            print (" can not slove for there are " + str(len(valid_values_for_area)) + ' in area these values' + str(list) + " in this round")
+
 
 def uniq(input):
 ## used to remove non unique items
@@ -286,15 +284,28 @@ def main(puzzle):
     else:
         display(puzzle)
         print ("Done")
+    return puzzle
 puzzle = '..9.43..........3.41..7.............8..5...6..4...6..2.......1...4.98..67..6..52.'
-#puzzle = '.....5....2...4.1..3..8..2......84..8..6......9..1.7.5..6......95...3.6...3.....1'
+puzzle = '.....5....2...4.1..3..8..2......84..8..6......9..1.7.5..6......95...3.6...3.....1'
+puzzle = '.....5....2..64.1..3..8..2......84..8..6......9..1.7.5..6......95...3.6...3.....1'
+puzzle = '.....5....2...4.1..3..8..2......84..8..6......9..1.7.5..6......95...3.6...3.....1'
+puzzle = '..........37.9..2..2...84.76...4.....8...71....3.6..5.278..69............9.4...3.'
+puzzle = '..........37.9..2..2...84.76...4.....8...71....3.6..5.278..69............9.4...3.'
+
+
 #puzzle = '....4....1..9..64..3....8....7.........1.859.......3...52..1....1.7.3...39..5...4'
 
-main(puzzle)
+puzzle = main(puzzle)
 
 
-
-
+for value in range(1,10):
+    count = 0
+    for index in puzzle:
+        if str(value) == index:
+            count += 1
+    count = 9 - count
+    print ("there are %s left to slove for number %s" %(count, value))
+print (get_all_)
 
 #print (can_cell_be_value(puzzle,2,0))
 #print (can_cell_be_value(puzzle,9,0))
