@@ -324,22 +324,33 @@ print find_possiable_cells_per_value(puzzle)
 
 
 def find_nunber_of_possiable_values_per_cell(puzzle):
+    # given any puzzle show the cell indicator then the possiable values for the empty cells
+    # input puzzle as a text string
+    # output is dictanary that has cells at the key values and connect lists.
+
     possiable_cell_per_value = find_possiable_cells_per_value(puzzle)
     possiable_value_per_cell = {}
     for value in possiable_cell_per_value.keys():
-        print value
-        print possiable_cell_per_value.get(value)
         possiable_for_single_value = possiable_cell_per_value.get(value)
-        for cell in possiable_for_single_value:
-            print cell, possiable_cell_per_value.get(value)
-            possiable_value_per_cell.update({cell:value})
+        print value, possiable_for_single_value
+        unsloved_idexes = []
+        for ii in possiable_for_single_value:
+            print value, ii
+            unsloved_idexes.append(ii)
+        possiable_value_per_cell.update({value:unsloved_idexes})
+    print possiable_value_per_cell
+
+
     #print possiable_value_per_cell
     for value in possiable_value_per_cell:
         t = 1
         #print str(value) + " : " + str(possiable_value_per_cell.get(value))
 
 
-find_nunber_of_possiable_values_per_cell(puzzle)
+#possable_for_value = find_nunber_of_possiable_values_per_cell(puzzle)
+possable_for_value = {}
+for ii in possable_for_value.keys():
+    print ii
 
 
 #print (can_cell_be_value(puzzle,2,0))
