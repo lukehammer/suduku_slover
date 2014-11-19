@@ -351,7 +351,7 @@ def find_nunber_of_possiable_values_per_cell(puzzle):
 possable_for_value = {}
 for ii in possable_for_value.keys():
     print ii
-
+print find_nunber_of_possiable_values_per_cell(puzzle)
 
 #print (can_cell_be_value(puzzle,2,0))
 #print (can_cell_be_value(puzzle,9,0))
