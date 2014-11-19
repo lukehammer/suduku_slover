@@ -305,7 +305,53 @@ for value in range(1,10):
             count += 1
     count = 9 - count
     print ("there are %s left to slove for number %s" %(count, value))
-print (get_all_)
+unsloved_list = get_unsloved_cells(puzzle)
+possable_list = {}
+for ii in range(1,10):
+    possable_for_value = get_possable_locations_for_number(unsloved_list,puzzle,ii)
+    possable_list.update({ii:possable_for_value})
+
+for ii in range(1,10):
+    print ii, ':', possable_list.get(ii)
+
+def find_possiable_cells_per_value(puzzle):
+    unsloved_list = get_unsloved_cells(puzzle)
+    for ii in range(1,10):
+        possable_for_value = get_possable_locations_for_number(unsloved_list,puzzle,ii)
+        possable_list.update({ii:possable_for_value})
+    return  possable_list
+print find_possiable_cells_per_value(puzzle)
+
+
+def find_nunber_of_possiable_values_per_cell(puzzle):
+    # given any puzzle show the cell indicator then the possiable values for the empty cells
+    # input puzzle as a text string
+    # output is dictanary that has cells at the key values and connect lists.
+
+    possiable_cell_per_value = find_possiable_cells_per_value(puzzle)
+    possiable_value_per_cell = {}
+    for value in possiable_cell_per_value.keys():
+        possiable_for_single_value = possiable_cell_per_value.get(value)
+        print value, possiable_for_single_value
+        unsloved_idexes = []
+        for ii in possiable_for_single_value:
+            print value, ii
+            unsloved_idexes.append(ii)
+        possiable_value_per_cell.update({value:unsloved_idexes})
+    print possiable_value_per_cell
+
+
+    #print possiable_value_per_cell
+    for value in possiable_value_per_cell:
+        t = 1
+        #print str(value) + " : " + str(possiable_value_per_cell.get(value))
+
+
+#possable_for_value = find_nunber_of_possiable_values_per_cell(puzzle)
+possable_for_value = {}
+for ii in possable_for_value.keys():
+    print ii
+print find_nunber_of_possiable_values_per_cell(puzzle)
 
 #print (can_cell_be_value(puzzle,2,0))
 #print (can_cell_be_value(puzzle,9,0))
