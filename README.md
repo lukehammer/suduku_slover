@@ -8,3 +8,5 @@ make a slover that work faster than the excel counter part
 learn about MVC
 maybe to in to a full app. 
 Suduku_Slover
+
+Hello Luke
