@@ -2,7 +2,7 @@ __author__ = 'student'
 import math
 
 
-
+#viewed by Cissie Scurlock
 def enterpuzzle(puzzle):
     while True:
         # puzzle = raw_input('please enter your 81 digit puzzle use "." for blank spots :\n')
