@@ -1,5 +1,10 @@
 Suduku_Slover
 =============
+goal to remake in Javascript for own study. 
+
+this time need to use classes(or javascript ==) 
+
+
 this is a quick project from luke hammer to refactor a projoct that i wrote in excel VBA into python. 
 
 
