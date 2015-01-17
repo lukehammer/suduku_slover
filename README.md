@@ -10,7 +10,7 @@ this is a quick project from luke hammer to refactor a projoct that i wrote in e
 
 Goals
 make a slover that work faster than the excel counter part
-learn about MVC
+learn about MVC -- i have a grasp on MVC from useing django in related project. 
 maybe to in to a full app. 
 Suduku_Slover
 
