@@ -1,0 +1,49 @@
+/*
+   New Perspectives on HTML and XHTML 5th Edition
+   Tutorial 5
+   Case Problem 1
+
+   JPF Style Sheet
+ Author: Luke Hammer  
+   Date:   6/4/2014
+
+   Filename:         jpf.css
+   Supporting Files: left.jpg, topleft.jpg, topright.jpg
+
+*/
+
+body                  {margin: 0px; font-family: Verdana, Geneva, sans-serif}
+
+#header               {position: absolute; top: 0px; left: 0px; height: 120px; padding: 0px}
+
+#header ul            {list-style-type: none; padding: 0px; margin: -20px 0px 0px 15px; }
+#header ul li         {display: inline; color: rgb(254, 232, 130);
+                       font-size: 10px; margin: 0px 10px; padding: 0px}
+#header ul li a       {color: rgb(254, 232, 130); text-decoration: none}
+#header ul li a:hover {color: rgb(211,254,106)}
+
+#leftColumn           {position: absolute; top: 100px; left: 5px; width: 150px}
+
+#links                {background-color: black; padding: 0px; margin: 0px}
+#links ul             {list-style-type: none; font-size: 12px; padding: 10px; 
+                       margin: 0px 0px 20px 0px}
+#links ul li          {margin: 0px 0px 0px 10px; line-height: 1.6}
+#links ul a           {color: rgb(254, 232, 130); text-decoration: none;}
+#links ul a:hover     {color: rgb(211,254,106);text-decoration: overline underline}
+
+#rightColumn          {position: absolute; top: 100px; left: 175px; width: 500px}
+#rightColumn h3       {font-size: 14px; margin: 10px 0px 0px 0px}
+#rightColumn p        {font-size: 10px; margin: 10px 0px; width: 420px}
+
+.topLeft {background: url(topleft.jpg) no-repeat top left} 
+.topRight {background: url(topright.jpg) no-repeat top right} 
+.Left {background: url(left.jpg) repeat-y left} 
+
+
+
+
+
+
+
+
+
