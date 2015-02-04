@@ -14,4 +14,7 @@ learn about MVC -- i have a grasp on MVC from useing django in related project.
 maybe to in to a full app. 
 Suduku_Slover
 
-Hello Luke
+
+Working on interface in HTml/css
+
+build django app to hold project. 
